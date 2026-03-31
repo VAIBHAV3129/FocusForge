@@ -9,9 +9,9 @@ FocusForge is designed to be a ESP32 powered which basically helps you focus( as
 Safe Logic: TXS0108E Level Shifter ensures stable communication between 3.3V and 5V components.
 
 # Technical Details
-- Microcontroller: ESP32 (Dual-core for simultaneous UI and Sensor management).
+- Microcontroller: ESP32 
 - Communication: I2C Bus for display and distance sensing.
-- Firmware: Written in C++/Arduino (optimized for low power).
+- Firmware: Written in C++/Arduino.
 - Hardware: Parametric enclosure designed in Onshape.
 
 
