@@ -1,1 +1,43 @@
+# Main Control & Power
 
+ESP32 Development Board (38-pin DevKit V1): * Size: ~52mm x 28mm (approx. 25.4mm width for the narrow version).
+
+Height: ~12mm (including pins).
+
+ESP32 Expansion Board (38-pin): * Size: 78mm x 63mm.
+
+Mounting Holes: Usually at the four corners; check the PCB for exact spacing before placing pillars in Onshape.
+
+LiPo Battery (3.7V 1000mAh): * Size: ~35mm x 38mm x 6.6mm.
+
+Note: Batteries can vary slightly by manufacturer; leave at least 2mm of extra space for expansion.
+
+
+# User Interface (Lid Cutouts)
+
+1.3" I2C OLED Display (SH1106): * PCB Size: 35.4mm x 33.5mm.
+
+Viewing Area (Cutout): 29.4mm x 14.7mm.
+
+KY-040 Rotary Encoder: * PCB Base: 30mm x 18mm.
+
+Shaft Diameter: 7mm ( 7.5mm hole for clearance).
+
+Shaft Height: 20mm ( lid height accounts for this).
+
+
+# Sensors & Power Regulation
+
+ToF Sensor (VL53L0X Breakout): * Size: 13mm x 18mm x 2mm.
+
+Lens Placement: The sensor itself is a tiny black square in the center; your cutout should align with this.
+
+TP4056 Charging Module: * Size: 25mm x 19mm.
+
+Port: The Micro-USB port sticks out slightly (~1-2mm); your side-wall cutout needs to account for this depth.
+
+TXS0108E Logic Level Shifter: * Size: ~26mm x 15mm.
+
+MCP1700-3302E Regulator: * Package: TO-92 (Through-hole).
+
+Size: 4.7mm x 4.6mm. It’s small, like a transistor.
