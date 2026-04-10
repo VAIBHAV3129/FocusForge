@@ -1,3 +1,7 @@
+
+<img width="400" height="300" alt="FocusForge" src="https://github.com/user-attachments/assets/1ff15a3e-58cb-427a-81d6-03f622fbc2e4" />
+
+
 # FocusForge
 FocusForge is designed to be a ESP32 powered which basically helps you focus( as in the name itself) it helps users to maintain a state of flow and creates a dedicated environment for deep work.
 
