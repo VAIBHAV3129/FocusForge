@@ -4,7 +4,7 @@
 #include <Adafruit_VL53L0X.h>
 #include <ESP32Encoder.h>
 
-// --- Pin Definitions (Matching your Wokwi Diagram) ---
+
 #define ENC_CLK 18
 #define ENC_DT  19
 #define ENC_SW  4
@@ -16,12 +16,12 @@
 #define SDA_PIN 21
 #define SCL_PIN 22
 
-// --- Hardware Objects ---
+
 Adafruit_SSD1306 display(128, 64, &Wire, -1);
 Adafruit_VL53L0X lox = Adafruit_VL53L0X();
 ESP32Encoder encoder;
 
-// --- State Management ---
+
 enum State { IDLE, WORKING, BREAK, ALARM };
 State deviceState = IDLE;
 
@@ -29,13 +29,13 @@ struct FocusMode {
   String name;
   int workMin;
   int breakMin;
-  int r, g, b; // Cyan/Neon theme colors
+  int r, g, b; 
 };
 
 FocusMode modes[] = {
-  {"LIGHT", 25, 5, 0, 255, 150},  // Cyan-ish
-  {"DEEP", 50, 10, 0, 100, 255},  // Deep Blue
-  {"HYPER", 90, 15, 255, 0, 255}  // Magenta
+  {"LIGHT", 25, 5, 0, 255, 150},  
+  {"DEEP", 50, 10, 0, 100, 255},  
+  {"HYPER", 90, 15, 255, 0, 255}  
 };
 
 int currentModeIdx = 0;
@@ -47,14 +47,14 @@ bool presenceDetected = true;
 void setup() {
   Serial.begin(115200);
 
-  // Pin Setup
+
   pinMode(RGB_R, OUTPUT);
   pinMode(RGB_G, OUTPUT);
   pinMode(RGB_B, OUTPUT);
   pinMode(BUZZER, OUTPUT);
   pinMode(BUTTON, INPUT_PULLUP);
   
-  // Initialize Hardware
+ 
   Wire.begin(SDA_PIN, SCL_PIN);
   
   if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) Serial.println("OLED Failed");
@@ -63,7 +63,7 @@ void setup() {
   encoder.attachHalfQuad(ENC_CLK, ENC_DT);
   encoder.setCount(0);
 
-  updateRGB(50, 50, 50); // Boot-up glow
+  updateRGB(50, 50, 50); 
   showBootMessage();
 }
 
@@ -73,20 +73,20 @@ void loop() {
   updateUI();
 }
 
-// --- Input Handling ---
+
 void handleInputs() {
-  // Handle Rotation (Mode Selection)
+  
   if (deviceState == IDLE) {
-    long newCount = encoder.getCount() / 2; // Adjust sensitivity
+    long newCount = encoder.getCount() / 2; 
     if (newCount != currentModeIdx) {
       currentModeIdx = constrain(newCount, 0, 2);
       encoder.setCount(currentModeIdx * 2);
     }
   }
 
-  // Handle Start Button (GPIO 32)
+  
   if (digitalRead(BUTTON) == LOW || digitalRead(ENC_SW) == LOW) {
-    delay(200); // Debounce
+    delay(200); 
     if (deviceState == IDLE) {
       startSession();
     } else if (deviceState == ALARM || deviceState == BREAK) {
@@ -95,7 +95,7 @@ void handleInputs() {
   }
 }
 
-// --- Core Logic ---
+
 void updateLogic() {
   if (deviceState == WORKING || deviceState == BREAK) {
     if (millis() - lastTick >= 1000) {
@@ -113,18 +113,18 @@ void updateLogic() {
 void checkPresence() {
   VL53L0X_RangingMeasurementData_t measure;
   lox.rangingTest(&measure, false);
-  // If distance > 1 meter, consider user "Away"
+
   presenceDetected = (measure.RangeMilliMeter < 1000 && measure.RangeStatus != 4);
   
   if (!presenceDetected && deviceState == WORKING) {
-    // Visual nudge: Flash Red if user leaves
+   
     analogWrite(RGB_R, 255); 
   } else {
     updateRGB(modes[currentModeIdx].r, modes[currentModeIdx].g, modes[currentModeIdx].b);
   }
 }
 
-// --- UI & Visuals ---
+
 void updateUI() {
   display.clearDisplay();
   display.setTextColor(WHITE);
@@ -142,14 +142,14 @@ void updateUI() {
     display.setCursor(0, 0); 
     display.print(deviceState == WORKING ? "FOCUSING..." : "BREAK TIME");
     
-    // Timer display
+    
     int m = timeLeftSeconds / 60;
     int s = timeLeftSeconds % 60;
     display.setTextSize(3);
     display.setCursor(20, 20);
     display.printf("%02d:%02d", m, s);
     
-    // Progress Bar
+   
     int barWidth = map(timeLeftSeconds, 0, totalSessionSeconds, 0, 128);
     display.drawRect(0, 55, 128, 7, WHITE);
     display.fillRect(0, 55, 128 - barWidth, 7, WHITE);
