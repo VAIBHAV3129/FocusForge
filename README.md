@@ -1,5 +1,5 @@
 
-<img width="400" height="300" alt="FocusForge" src="https://github.com/user-attachments/assets/1ff15a3e-58cb-427a-81d6-03f622fbc2e4" />
+<img width="700" height="600" alt="FocusForge" src="https://github.com/user-attachments/assets/1ff15a3e-58cb-427a-81d6-03f622fbc2e4" />
 
 
 # FocusForge
@@ -33,3 +33,43 @@ Safe Logic: TXS0108E Level Shifter ensures stable communication between 3.3V and
 | ESP32 Expansion Board 38PIN  | To expand the pins in esp32                                   | 1        |   | https://robu.in/product/esp32-development-board-type-c-micro-usb-esp32-expansion-board-38pin-female-header/                                   | Robu.in           |
 | ESP32 Development Board      | Main microcontroller (controls inputs, display, LEDs)         | 1        |   | https://quartzcomponents.com/products/esp32-development-board-wifi-bluetooth?srsltid=AfmBOop5SbXRiRc-WjiRxyPXG12NK5DHwPdszQunlr1lx-TGsmn70tve | Quartz Components |
 | Other minor components     | Breadboard, Jumperwires etc for prototyping         | as necessary        |   | 
+
+
+
+
+## Wiring 
+
+<img width="1099" height="843" alt="1774971280608-ixl5uo" src="https://github.com/user-attachments/assets/506b9f7b-ab72-4b65-84b7-1d0842e8b58c" />
+
+
+# Power & Ground 
+
+- 3.3V Rail: Connect the ESP32 3V3 pin to the VCC/VIN pins of the OLED display, the VL53L0X sensor, and the Rotary Encoder.
+
+- Ground Rail: Connect any GND pin on the ESP32 to the GND/COM pins of the OLED, VL53L0X, RGB LED, Buzzer, Rotary Encoder, and the standalone Pushbutton.
+
+# I2C Communication (Shared Bus)
+
+- Data (SDA): Connect ESP32 GPIO 21 to the SDA pin on the OLED and the SDA pin on the VL53L0X sensor.
+
+- Clock (SCL): Connect ESP32 GPIO 22 to the SCL pin on the OLED and the SCL pin on the VL53L0X sensor.
+
+# User Inputs 
+
+- Rotary Clock: Connect ESP32 GPIO 18 to the CLK pin of the encoder.
+
+- Rotary Data: Connect ESP32 GPIO 19 to the DT pin of the encoder.
+
+- Encoder Switch: Connect ESP32 GPIO 4 to the SW pin of the encoder.
+
+- Main Button: Connect ESP32 GPIO 32 to one side of your Pushbutton.
+
+# Feedback System 
+
+- Red Channel: Connect ESP32 GPIO 25 to the Red pin of the RGB LED.
+
+- Green Channel: Connect ESP32 GPIO 26 to the Green pin of the RGB LED.
+
+- Blue Channel: Connect ESP32 GPIO 27 to the Blue pin of the RGB LED.
+
+- Buzzer Alert: Connect ESP32 GPIO 13 to the positive terminal (Pin 2) of the Buzzer.
